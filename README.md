@@ -1,5 +1,10 @@
 # TAP Token Tracking with Trac
-This document is supposed to help retrieving indexed & tracked Bitmap data for further processing.
+This document is supposed to help retrieving indexed & tracked TAP token data for further processing.
+
+Please note that this _confirmed_ data and _not_ mempool data. If you intend to create a marketplace, please make sure to utilize the Bitcoin mempool to prevent frontrunning techniques, especially when it comes to token transfers.
+
+This only holds true for TAP's _external_ functions like "token-deploy", "token-mint" and "token-transfer" as they derive directly from BRC-20 and are comparable to that standard.
+_Internal_ functions like "token-send" are mempool-safe and do not require mempool observation.
 
 After public release, you may want to self-host Trac. In this case, the described endpoint below will need to get changed into your own endpoint location.
 
