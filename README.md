@@ -144,7 +144,7 @@ trac.on('response', async function(msg){
 ```
 
 As you can see, 'renderBalances_accountTokens' being passed as custom object in the call_id, is being sent with the request.
-In the response event, the exact call_id will be passed through and you may use the results to trigger the next call in the end and eventually end until you received all desired data sets.
+In the response event, the exact call_id will be passed through and you may use the results to trigger the next call in the chain until you received all desired data sets.
 
 #### Available endpoint getters
 
