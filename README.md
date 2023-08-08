@@ -1,7 +1,7 @@
 # TAP Token Tracking with Trac
 This document is supposed to help retrieving indexed & tracked TAP token data for further processing. Also make sure to read the TAP protocol specs: https://github.com/BennyTheDev/tap-protocol-specs.
 
-Please note that this _confirmed_ data and _not_ mempool data. If you intend to create a marketplace, please make sure to utilize the Bitcoin mempool to prevent frontrunning techniques, especially when it comes to token transfers.
+Please note that this _confirmed_ data and _not_ mempool data. If you intend to create a marketplace, please utilize the Bitcoin mempool to make frontrunning techniques less likely, especially when it comes to token transfers.
 
 This only holds true for TAP's _external_ functions like "token-deploy", "token-mint" and "token-transfer" as they derive directly from BRC-20 and are a clone of that standard.
 _Internal_ functions like "token-send" are mempool-safe and do not require mempool observation.
