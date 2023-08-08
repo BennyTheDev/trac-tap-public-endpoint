@@ -80,6 +80,72 @@ trac.emit('get',
 });
 ```
 
+#### Composing Getters
+
+You may want to do to things like retrieving list lengths + list items in one operation.
+Since the endpoint is using a streaming client and strategy, it is recommended to utilize chained getter calls.
+
+Get account tokens example:
+
+```javascript
+async function tokens(address)
+{
+    trac.emit('get',
+    {
+        func : 'accountTokensLength',
+        args : [address],
+        call_id : { cmd : 'tokens_accountTokens', address : address }
+    });
+}
+
+async function getAccountTokens(address, offset = 0, max = 500, call_id = null)
+{
+    trac.emit('get',
+    {
+        func : 'accountTokens',
+        args : [address, offset, max],
+        call_id : call_id === null ? '' : call_id
+    });
+}
+
+tokens(address);
+```
+
+Processing the response of above calls:
+
+```javascript
+trac.on('response', async function(msg){
+
+    if(typeof msg.call_id === 'object')
+    {
+        switch(msg.call_id.cmd)
+        {
+            case 'tokens_accountTokens':
+
+                getAccountTokens(
+                    msg.call_id.address,
+                    0,
+                    500,
+                    { cmd : 'tokens_end', address : msg.call_id.address }
+                );
+
+                break;
+
+            case 'tokens_end':
+
+                console.log(msg);
+
+                // render results...
+
+                break;
+        }
+    }
+)};
+```
+
+As you can see, 'renderBalances_accountTokens' being passed as custom object in the call_id, is being sent with the request.
+In the response event, the exact call_id will be passed through and you may use the results to trigger the next call in the end and eventually end until you received all desired data sets.
+
 #### Available endpoint getters
 
 The results for the calls of the below getters should be used in the "response" event above, explained in Code Anatomy.
