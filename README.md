@@ -32,7 +32,7 @@ Code Anatomy
 // node only!
 const { io } = require("socket.io-client");
 
-// connect to public Bitmap endpoint with Trac
+// connect to public TAP endpoint with Trac
 
 const trac = io("https://tap.trac.network", {
     autoConnect : true,
