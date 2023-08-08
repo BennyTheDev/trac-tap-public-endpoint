@@ -1,5 +1,5 @@
 # TAP Token Tracking with Trac
-This document is supposed to help retrieving indexed & tracked TAP token data for further processing.
+This document is supposed to help retrieving indexed & tracked TAP token data for further processing. Also make sure to read the TAP protocol specs: https://github.com/BennyTheDev/tap-protocol-specs.
 
 Please note that this _confirmed_ data and _not_ mempool data. If you intend to create a marketplace, please make sure to utilize the Bitcoin mempool to prevent frontrunning techniques, especially when it comes to token transfers.
 
