@@ -3,7 +3,7 @@ This document is supposed to help retrieving indexed & tracked TAP token data fo
 
 Please note that this _confirmed_ data and _not_ mempool data. If you intend to create a marketplace, please make sure to utilize the Bitcoin mempool to prevent frontrunning techniques, especially when it comes to token transfers.
 
-This only holds true for TAP's _external_ functions like "token-deploy", "token-mint" and "token-transfer" as they derive directly from BRC-20 and are comparable to that standard.
+This only holds true for TAP's _external_ functions like "token-deploy", "token-mint" and "token-transfer" as they derive directly from BRC-20 and are a clone of that standard.
 _Internal_ functions like "token-send" are mempool-safe and do not require mempool observation.
 
 After public release, you may want to self-host Trac. In this case, the described endpoint below will need to get changed into your own endpoint location.
@@ -204,5 +204,410 @@ trac.emit('get',
     call_id : ''
 });
 
+/**
+* Expects a string ticker.
+* Returns the amount of holders for the given ticker.
+*
+* Note: this getter will also include holders for the given ticker, that once owned but no longer hold.
+*/ 
+trac.emit('get',
+{
+    func : 'holdersLength',
+    args : [ticker],
+    call_id : ''
+});
 
+/**
+* Expects a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 holder addresses per call.
+*
+* Note: this getter will also return holders that had but now own 0 tokens of the given ticker.
+*/ 
+trac.emit('get',
+{
+    func : 'holders',
+    args : [ticker, offset, max],
+    call_id : ''
+});
+
+
+/**
+* Expects a string Bitcoin address.
+* Returns the amount of tokens owned by the address.
+*
+* Note: this getter will also include tokens the address no longer owns.
+*/ 
+trac.emit('get',
+{
+    func : 'accountTokensLength',
+    args : [ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 string tickers.
+*
+* Note: this getter will also return tickers the address once owned but no longer holds.
+*/ 
+trac.emit('get',
+{
+    func : 'accountTokens',
+    args : [address, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount of mints ever performed by the address.
+*
+* Note: the result includes mints that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'accountMintListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 mint objects.
+*
+* Note: the result includes mints that failed.
+*       you can use this list to render an account mint history.
+*
+* Example mint object:
+* 
+* {
+*     addr: 'bc1pcjy9dud7hmtzyfd3hrulznxfjrcx6m0kmps36dgp8tut7mvddulqdrxzyq',
+*     blck: 802098,
+*     amt: '0',
+*     bal: '0',
+*     tx: '8d8ce31acac3ed85eb5df09bc700ddb14359042fb2015fa20beac1baf7384227',
+*     ins: '8d8ce31acac3ed85eb5df09bc700ddb14359042fb2015fa20beac1baf7384227i0',
+*     num: -77585,
+*     ts: 1691413973,
+*     fail: true
+* }
+*/ 
+trac.emit('get',
+{
+    func : 'accountMintList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker.
+* Returns the amount of mints ever performed for the given ticker.
+*
+* Note: the result includes mints that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerMintListLength',
+    args : [ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 mint objects.
+*
+* Note: the result includes mints that failed.
+*       you can use this list to render a ticker mint history.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerMintList',
+    args : [ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of mints ever performed.
+*
+* Note: the result includes mints that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'mintListLength',
+    args : [],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 mint objects.
+*
+* Note: the result includes mints that failed.
+*       you can use this to stream the entire mint history, across all tickers and addresses.
+*/ 
+trac.emit('get',
+{
+    func : 'mintList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount transfer-inscribes ever performed by the address.
+*
+* Note: the result includes transfers that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'accountTransferListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 transfer-inscribe objects.
+*
+* Note: the result includes transfers that failed.
+*       you can use this list to render an account transfer-inscribe history.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountTransferList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker.
+* Returns the amount of inscribe-transfer inscriptions ever performed for the given ticker.
+*
+* Note: the result includes mints that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerTransferListLength',
+    args : [ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 inscribe-transfer objects.
+*
+* Note: the result includes transfer-inscribes that failed.
+*       you can use this list to render a ticker transfer-inscribe history.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerTransferList',
+    args : [ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of mints ever performed.
+*
+* Note: the result includes transfer-inscribes that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'transferListLength',
+    args : [],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 transfer-inscribe objects.
+*
+* Note: the result includes transfer-inscribes that failed.
+*       you can use this to stream the entire transfer-inscribe history, across all tickers and addresses.
+*/ 
+trac.emit('get',
+{
+    func : 'transferList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount sends ever performed by the address.
+*
+* Note: the result includes sends that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'accountSentListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 send objects.
+*
+* Note: the result includes sends that failed.
+*       you can use this list to render an account send history.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountSentList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker.
+* Returns the amount of sends ever performed for the given ticker.
+*
+* Note: the result includes sends that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerSentListLength',
+    args : [ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 send objects.
+*
+* Note: the result includes sends that failed.
+*       you can use this list to render a ticker send history.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerSentList',
+    args : [ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of sends ever performed.
+*
+* Note: the result includes sends that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'sentListLength',
+    args : [],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 send objects.
+*
+* Note: the result includes sends that failed.
+*       you can use this to stream the entire send history, across all tickers and addresses.
+*/ 
+trac.emit('get',
+{
+    func : 'sentList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount of tokens ever received by the address.
+*
+* Note: the result includes receives that failed.
+*/ 
+trac.emit('get',
+{
+    func : 'accountReceiveListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 receive objects.
+*
+* Note: the result includes receives that failed.
+*       you can use this list to render an account receive history.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountReceiveList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects an inscription id (not number)
+* Returns an accumulation object for internal functions, including the inscribed json object.
+* Returns null if the accumulator object doesn't exist.
+*/
+trac.emit('get',
+{
+    func : 'accumulator',
+    args : [inscription id],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount of accumulated items, which represent incoming internal function prior tapping.
+*
+* Note: the result includes accumulated items that may have been tapped already.
+*/ 
+trac.emit('get',
+{
+    func : 'accountAccumulatorListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 accumulator objects.
+*
+* Note: the result includes accumulated items that may have been tapped already.
+*       to check if the an accumulated item has been tapped, check for its presence using the getter "accumulator" above.
+*       if a returned accumulator from the list is null, it means it has been tapped.
+*       you can use this list to render an account accumulation history and present tappable internal functions (=awaiting confirmation).
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountAccumulatorList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of accumulated items across all addresses, which represent incoming internal function prior tapping.
+*
+* Note: the result includes accumulated items that may have been tapped already.
+*/ 
+trac.emit('get',
+{
+    func : 'accumulatorListLength',
+    args : [],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns up to 500 send objects.
+*
+* * Note: the result includes accumulated items that may have been tapped already.
+*       to check if the an accumulated item has been tapped, check for its presence using the getter "accumulator" above.
+*       if a returned accumulator from the list is null, it means it has been tapped.
+*       you can use this list to render a "mempool-like" accumulation history and present tappable internal functions (=awaiting confirmation).
+*/ 
+trac.emit('get',
+{
+    func : 'accumulatorList',
+    args : [offset, max],
+    call_id : ''
+});
 ```
