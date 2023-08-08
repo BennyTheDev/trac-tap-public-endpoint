@@ -70,8 +70,8 @@ trac.on('error', async function(msg){
 trac.emit('get',
 {
     func : 'deployment', // the endpoints function to call
-    args : ['-tap'],            // the arguments for the function (in this case only 1 argument, the block)
-    call_id : ''                // a custom id that is passed through in the 'response' event above to identify for which call the response has been.
+    args : ['-tap'],     // the arguments for the function (in this case only 1 argument)
+    call_id : ''         // a mixed-type custom id that is passed through in the 'response' event above to identify for which call the response has been and how to proceed.
 });
 ```
 
@@ -86,6 +86,22 @@ Parallel calls are encouraged. Especially if large amounts of data are requested
 * Expects a ticker string argument.
 * Returns a deployment object, containing the deployed token information.
 * Returns null if the ticker doesn't exist.
+*
+* Example returned object:
+*
+*{
+*  tick: 'bitmap',
+*  max: '21000000000000000000000000',
+*  lim: '1000000000000000000000',
+*  dec: 18,
+*  blck: 802027,
+*  tx: '1e69ce0d3b46a0e2556b01afc87cd596be89c341dfc3e50cd81580a522a77d4a',
+*  ins: '1e69ce0d3b46a0e2556b01afc87cd596be89c341dfc3e50cd81580a522a77d4ai0',
+*  num: 22023299,
+*  ts: 1691376381,
+*  addr: 'bc1p6wynl030xsvr48r6kgw99jdtll7jd9n3e8f60j04hmgnrwwysruqwrf9pm',
+*  crsd: false
+*}
 */ 
 trac.emit('get',
 {
@@ -118,6 +134,9 @@ trac.emit('get',
 /**
 * Expects a ticker string argument.
 * Returns a string representing the amount of minted tokens in a Big Integer format.
+* Returns null if the ticker doesn't exist.
+*
+* In general, all token balances, transferables, limits and token amounts for this endpoint return in the said format.
 *
 * You may use JS' BigInt() function to perform calculations.
 *
@@ -149,5 +168,36 @@ trac.emit('get',
     args : [ticker],
     call_id : ''
 });
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the address balance for that ticker as string in Big Integer format.
+* Returns null if there are no balances yet for the address/ticker combination.
+*
+*/
+trac.emit('get',
+{
+    func : 'balance',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the address transferable amount for that ticker as string in Big Integer format.
+* Returns null if there are no balances yet for the address/ticker combination.
+*
+* Note: there is no "available" gettter. Please calculate the available amounts like this:
+*
+* available = balance - transferable
+*
+*/
+trac.emit('get',
+{
+    func : 'transferable',
+    args : [address, ticker],
+    call_id : ''
+});
+
 
 ```
