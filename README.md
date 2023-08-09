@@ -68,14 +68,14 @@ trac.on('error', async function(msg){
     console.log(msg);
 });
 
-// example getter to get the transaction size of a block
+// example getter to get a deployed token.
 // the results for this call will be triggered by the 'response' event above.
 // this structure is exactly the same for all available getters of this endpoint.
 
 trac.emit('get',
 {
     func : 'deployment', // the endpoints function to call
-    args : ['-tap'],     // the arguments for the function (in this case only 1 argument)
+    args : ['tap'],     // the arguments for the function (in this case only 1 argument)
     call_id : ''         // a mixed-type custom id that is passed through in the 'response' event above to identify for which call the response has been and how to proceed.
 });
 ```
