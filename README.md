@@ -637,7 +637,7 @@ trac.emit('get',
 * Returns up to 500 accumulator objects.
 *
 * Note: the result includes accumulated items that may have been tapped already.
-*       to check if the an accumulated item has been tapped, check for its presence using the getter "accumulator" above.
+*       to check if an accumulated item has been tapped, check for its presence using the getter "accumulator" above.
 *       if a returned accumulator from the list is null, it means it has been tapped.
 *       you can use this list to render an account accumulation history and present tappable internal functions (=awaiting confirmation).
 *
@@ -666,7 +666,7 @@ trac.emit('get',
 * Returns up to 500 send objects.
 *
 * * Note: the result includes accumulated items that may have been tapped already.
-*       to check if the an accumulated item has been tapped, check for its presence using the getter "accumulator" above.
+*       to check if an accumulated item has been tapped, check for its presence using the getter "accumulator" above.
 *       if a returned accumulator from the list is null, it means it has been tapped.
 *       you can use this list to render a "mempool-like" accumulation history and present tappable internal functions (=awaiting confirmation).
 */ 
