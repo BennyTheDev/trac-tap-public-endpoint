@@ -676,4 +676,178 @@ trac.emit('get',
     args : [offset, max],
     call_id : ''
 });
+
+/**
+* Returns an object with trade information.
+* Returns null if the trade never existed or got filled.
+*
+* NOTE: To get a history of trades, please use one of the list getters below.
+*       You might need this getter in combination with trade histories to verify if the trade has ever existed.
+*
+*/
+trac.emit('get',
+{
+    func : 'trade',
+    args : [inscription id],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of trades for the given account and ticker.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountTradesList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'accountTradesListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of trades for the given ticker.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'tickerTradesList',
+    args : [ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker.
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerTradesListLength',
+    args : [ticker],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of trades.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'tradesList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'tradesListLength',
+    args : [],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of received trades for the given account and ticker.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountReceiveTradesFilledList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'accountReceiveTradesFilledListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address, a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of filled trades for the given account and ticker.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountTradesFilledList',
+    args : [address, ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string Bitcoin address and a string ticker.
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'accountTradesFilledListLength',
+    args : [address, ticker],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of filled trades for the given ticker.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'tickerTradesFilledList',
+    args : [ticker, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string ticker.
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'tickerTradesFilledListLength',
+    args : [ticker],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of filled trades.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'tradesFilledList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'tradesFilledListLength',
+    args : [],
+    call_id : ''
+});
 ```
