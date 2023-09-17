@@ -850,4 +850,118 @@ trac.emit('get',
     args : [],
     call_id : ''
 });
+
+/**
+* Accepts a string hash from a signed token-auth.
+* Returns true if a hash has ever been used.
+* Returns false if not.
+*/ 
+trac.emit('get',
+{
+    func : 'authHashExists',
+    args : [signature_hash],
+    call_id : ''
+});
+
+/**
+* Accept an inscription_id (not number) of a token-auth.
+* Returns true if the given token-auth has been cancelled.
+* Returns false if not.
+*/ 
+trac.emit('get',
+{
+    func : 'authCancelled',
+    args : [inscription_id],
+    call_id : ''
+});
+
+/**
+* Expects a string address, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of token-auth's assigned to the address.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountAuthList',
+    args : [address, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string address.
+* Returns the amount of token-auth's assigned to the address.
+*/ 
+trac.emit('get',
+{
+    func : 'accountAuthListLength',
+    args : [address],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of token_auths.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'authList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of token_auths.
+*/ 
+trac.emit('get',
+{
+    func : 'authListLength',
+    args : [],
+    call_id : ''
+});
+
+/**
+* Expects a string address, an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of token-auth redeems's assigned to the address.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'accountRedeemList',
+    args : [address, offset, max],
+    call_id : ''
+});
+
+/**
+* Expects a string address.
+* Returns the amount of token-auth redeems's assigned to the address.
+*/ 
+trac.emit('get',
+{
+    func : 'accountRedeemListLength',
+    args : [address],
+    call_id : ''
+});
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of token_auths redeems.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'redeemList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of token_auths redeems.
+*/ 
+trac.emit('get',
+{
+    func : 'redeemListLength',
+    args : [],
+    call_id : ''
+});
 ```
