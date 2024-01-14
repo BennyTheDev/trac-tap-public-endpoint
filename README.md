@@ -995,7 +995,7 @@ trac.emit('get',
 * Returns the allocated amount of a specific transfer inscription as string (BigInt encoded). If '0', then the transfer inscription has been spent.
 * Returns null if the transfer inscription does not exist.
 * NOTE: This function assumes that the caller knows the decimals of the token associated with the transfer inscription.
-*       Knowing this is important to calculate the decimal points.
+*       Knowing this is important to calculate the actual amount, based on the decimal points for the targeted token.
 */ 
 trac.emit('get',
 {
