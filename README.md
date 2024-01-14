@@ -964,4 +964,40 @@ trac.emit('get',
     args : [],
     call_id : ''
 });
+
+/**
+* Expects an integer offset (min 0) to start from and an integer max (max 500).
+* Returns a list of existing DMT (Digital Matter Theory) elements.
+*
+*/ 
+trac.emit('get',
+{
+    func : 'dmtElementsList',
+    args : [offset, max],
+    call_id : ''
+});
+
+/**
+* Returns the amount of history entries.
+*/ 
+trac.emit('get',
+{
+    func : 'dmtElementsListLength',
+    args : [],
+    call_id : ''
+});
+
+/**
+* Expects a string inscription id (not number!).
+* Returns the allocated amount of a specific transfer inscription as string (BigInt encoded). If '0', then the transfer inscription has been spent.
+* Returns null if the transfer inscription does not exist.
+* NOTE: This function assumes that the caller knows the decimals of the token associated with the transfer inscription.
+*       Knowing this is important to calculate the decimal points.
+*/ 
+trac.emit('get',
+{
+    func : 'transferAmountByInscription',
+    args : [inscription_id],
+    call_id : ''
+});
 ```
