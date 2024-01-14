@@ -354,8 +354,11 @@ trac.emit('get',
 *     ins: '8d8ce31acac3ed85eb5df09bc700ddb14359042fb2015fa20beac1baf7384227i0',
 *     num: -77585,
 *     ts: 1691413973,
-*     fail: true
+*     fail: true,
+*     dmtblck: null
 * }
+*
+* NOTE: dmtblock will be null for regular token-mint functions and populated with a blocknumber as integer for dmt-mint functions.
 */ 
 trac.emit('get',
 {
